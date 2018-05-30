@@ -1,0 +1,63 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: micro-service-producer-dept # 应用名，用于服务发布
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/cloudDB_03?characterEncoding=utf8
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: root
+      # 配置初始化大小、最小、最大
+      initialSize: 1 # 初始化数量
+      minIdle: 1 # 最小空闲数
+      maxActive: 20 # 最大活跃数
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 校验查询
+      validationQuery: select 1 from dual # select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开 PSCache，并且指定每个连接上 PSCache 的大小
+      poolPreparedStatements: true
+      max-open-prepared-statements: 20 # 等价于 maxPoolPreparedStatementPerConnectionSize
+      # 打开 mergeSql 功能；设置 SQL 执行的超时时间，超时记录日志
+      filter:
+        stat:
+          log-slow-sql: true
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+
+mybatis:
+  configuration:
+    cache-enabled: true # 开启二级缓存
+    map-underscore-to-camel-case: true
+
+eureka:
+  client:
+    service-url:
+      # defaultZone: http://localhost:8761/eureka # 指定服务注册到 Eureka Server 的地址，要与 Server 端的 defaultZone 一致
+      defaultZone: http://spring.cloud.eureka.node01.com:8761/eureka/,http://spring.cloud.eureka.node02.com:8762/eureka/,http://spring.cloud.eureka.node03.com:8763/eureka/ # 集群配置
+  instance:
+    instance-id: MicroService-Producer-Dept:8003 # 指定服务实例名
+    prefer-ip-address: true # 在访问服务状态信息的 url 中显示 ip
+
+info:
+  app:
+    name: @project.name@
+    build:
+      java:
+        source: @java.version@
+        target: @java.version@
+      artifactId: @project.artifactId@
+      version: @project.version@
+      encoding: @project.build.sourceEncoding@
+

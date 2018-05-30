@@ -1,0 +1,10 @@
+server:
+  port: 8760
+eureka:
+  instance:
+    hostname: localhost # 服务端实例名
+  client:
+    register-with-eureka: false # 不向服务端注册服务，因为本身就是服务端
+    fetch-registry: false # 服务端检索服务实例不检索自己，因为自己就是是服务端，主要是维护服务实例，不给消费者提供其他服务
+    service-url:
+       defautlZone: http://${eureka.instance.hostname}:${server.port}/eureka/ # 默认 Eureka Server 的注册和查询服务 url

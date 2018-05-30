@@ -1,0 +1,10 @@
+server:
+  port: 8082
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://spring.cloud.eureka.node01.com:8761/eureka/,http://spring.cloud.eureka.node02.com:8762/eureka/,http://spring.cloud.eureka.node03.com:8763/eureka/
+feign:
+  hystrix:
+    enabled: true # 使用 Feign 方式调用时的服务降级处理，需要打开 hystrix

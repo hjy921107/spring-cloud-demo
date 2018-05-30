@@ -1,0 +1,7 @@
+server:
+  port: 8081
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://spring.cloud.eureka.node01.com:8761/eureka/,http://spring.cloud.eureka.node02.com:8762/eureka/,http://spring.cloud.eureka.node03.com:8763/eureka/

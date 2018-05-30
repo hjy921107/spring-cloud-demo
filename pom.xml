@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jyhuang</groupId>
+    <artifactId>micro-service-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>micro-service-api</module>
+        <module>micro-service-producer-dept-8001</module>
+        <module>micro-service-producer-dept-8002</module>
+        <module>micro-service-producer-dept-8003</module>
+        <module>micro-service-producer-dept-8004-hystrix</module>
+
+        <module>micro-service-consumer-dept-8080</module>
+        <module>micro-service-consumer-dept-8081-ribbon</module>
+        <module>micro-service-consumer-dept-8082-feign</module>
+
+        <module>micro-service-consumer-hystrix-dashboard-9001</module>
+
+        <module>micro-service-eureka-8761</module>
+        <module>micro-service-eureka-8762</module>
+        <module>micro-service-eureka-8763</module>
+
+        <module>micro-service-gateway-zuul-9999</module>
+        <module>micro-service-eureka-8760</module>
+        <module>micro-service-producer-dept-8000</module>
+    </modules>
+
+    <!-- 继承 SpringBoot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- 自定义版本属性 -->
+        <spring-cloud.version>Finchley.RC1</spring-cloud.version>
+        <mybatis.version>1.3.2</mybatis.version>
+        <druid.version>1.1.9</druid.version>
+        <springloaded.version>1.2.8.RELEASE</springloaded.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 引入 SpringCloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!-- 使用 druid 作为数据库连接池和监控 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- 热部署 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>springloaded</artifactId>
+                <version>${springloaded.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 指定 SpringCloud 仓库 -->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+</project>

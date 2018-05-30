@@ -1,0 +1,34 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: micro-service-zuul-9999
+
+eureka:
+  instance:
+    instance-id: MicroService-Gateway-Zuul:9999
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://spring.cloud.eureka.node01.com:8761/eureka/,http://spring.cloud.eureka.node02.com:8762/eureka/,http://spring.cloud.eureka.node03.com:8763/eureka/ # 集群配置
+
+zuul:
+  prefix: /microserver
+  ignored-services: '*'
+  routes:
+      dept:
+        serviceId: micro-service-producer-dept
+        path: /dept/**
+
+info:
+  app:
+    name: @project.name@
+    build:
+      java:
+        source: @java.version@
+        target: @java.version@
+      artifactId: @project.artifactId@
+      version: @project.version@
+      encoding: @project.build.sourceEncoding@
+
